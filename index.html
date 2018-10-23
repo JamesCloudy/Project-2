@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Basic Map</title>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+  crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <h1>Project 2</h1>
+  <!-- The div where we will inject our map -->
+  <div class="mapContainer">
+  <div id="map"></div>
+
+  <div class="selections">
+    <div class="select_row">
+      Start Date:
+      <input type="date" name="bday"min="2018-01-01" max="2018-10-10" id="start_date" value="2018-01-01">
+      </div>
+
+      <div class="select_row">
+        End Date:
+        <input type="date" name="bday"min="2018-01-01" max="2018-10-10" id="end_date"value="2018-10-20">
+        </div>
+
+        <div class="select_row"> 
+          Start Time:
+          <input type="time" name="bday" id="start_time" value="00:00">
+
+        </div>
+
+        <div class="select_row"> 
+            End Time:
+            <input type="time" name="bday"id="end_time"value="23:59">
+          </div>
+
+        <div class="select_row">
+          Start Weekday:
+        <select class="select_bar" id="start_week">
+            <option value="0">All Week</option>
+            <option value="2">Monday</option>
+            <option value="3">Tuesday</option>
+            <option value="4">Wednesday</option>
+            <option value="5">Thursday</option>
+            <option value="6">Friday</option>
+            <option value="7">Saturday</option>
+            <option value="1">Sunday</option>
+            
+          </select>
+        </div>
+
+         <div class="select_row">
+          End Weekday:
+          <select class="select_bar" id="end_week">
+              <option value="0">All Week</option>
+							<option value="2">Monday</option>
+							<option value="3">Tuesday</option>
+							<option value="4">Wednesday</option>
+							<option value="5">Thursday</option>
+							<option value="6">Friday</option>
+							<option value="7">Saturday</option>
+							<option value="1">Sunday</option>
+
+              </select>
+        </div>
+        <div class="select_row">
+          Severity:
+          <select class="select_bar" id="severity">
+            <option value="0">All Crashes</option>
+            <option value="1">Fatal</option>
+            <option value="2">Personal injury</option>
+            <option value="3">Property Damage</option>
+          </select>
+        </div>
+
+        <div class="select_row">
+            Crash Type:
+            <select class="select_bar" id="crash_type">
+              <option>All Crashe Types</option>
+              <option value="">All</option>
+									
+									<option value="01">Animal</option>									
+									<option value="02">Pedalcycle</option>									
+									<option value="03">Fixed Object</option>									
+									<option value="04">Other Object</option>									
+									<option value="05">Pedestrian</option>									
+									<option value="06">Railway Vehicle</option>									
+									<option value="07">Motor Vehicle in Transport</option>									
+									<option value="09">Parked Motor Vehicle</option>									
+									<option value="10">Overturn</option>									
+									<option value="11">Other Non Collision</option>									
+									<option value="12">Animal Drawn Veh/Animal Ridden Trans</option>									
+									<option value="13">Working Motor Vehicle</option>									
+									<option value="14">Fire/Explosion</option>									
+									<option value="15">Immersion</option>									
+									<option value="16">Jackknife</option>									
+									<option value="17">Fell/Jumped from MV</option>									
+									<option value="18">Cargo/Equip Loss/Shift</option>
+
+
+            </select>
+          </div>
+
+          <div class="select_row">
+              Crash Type:
+              <select class="select_bar" id="crash_type">                
+                <option value="01">All</option>									
+                <option value="02">St.Louis</option>									
+                <option value="03">St.Louis County</option>									  
+              </select>
+            </div>
+
+            <div class="select_row">
+                Crash Type:
+                <select class="select_bar" id="crash_type">
+                    <option value="01">Animal</option>									
+                    <option value="02">Pedalcycle</option>									
+                    <option value="03">Fixed Object</option>									
+                    <option value="04">Other Object</option>									
+                </select>
+              </div>
+              <!-- <div class="select_row">
+                  Crash Type:
+                  <select class="select_bar" id="crash_type">
+                      <option value="01">Animal</option>									
+                      <option value="02">Pedalcycle</option>									
+                      <option value="03">Fixed Object</option>									
+                      <option value="04">Other Object</option>									
+                  </select>
+                </div> -->
+
+<div class="select_bar"><input class="submitbtn" type="submit" value="Submit" onclick="submitfilter()">
+</div>
+  </div>
+  
+  <div>
+
+  <!-- API key -->
+  <script type="text/javascript" src="config.js"></script>
+  <!-- JS -->
+  <script type="text/javascript" src="logic.js"></script>
+</body>
+</html>
