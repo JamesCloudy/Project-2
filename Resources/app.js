@@ -49,7 +49,7 @@ var chartGroup = svg.append("g")
 //   });
 // })
 
-d3.csv("stl_accident_data.csv", function(stl_accident_data) {
+d3.csv("STLCrashCSVwLatLong.csv", function(stl_accident_data) {
 
 
     // Step 4: Parse the data
@@ -160,3 +160,82 @@ d3.csv("stl_accident_data.csv", function(stl_accident_data) {
 //     .text("Evening Donut Craving Level");
 
 });
+
+var map = L.map("map", {
+  center: [ 40.7, -94.5],
+  zoom: 7
+});
+
+
+// Then send the api request 
+L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Imagery © <a href='https://www.mapbox.com/'>Mapbox</a>",
+maxZoom: 18,
+id: "mapbox.streets",
+accessToken: API_KEY
+}).addTo(map);
+
+
+d3.csv("STLCrashCSVwLatLong.csv",  function(data) {
+
+      console.log(data);
+      // plotMap(data);
+      data.Injured = +data.Injured;
+    data.Coordinate = +data.Coordinate;
+
+      for (var i = 0; i < data.length; i++) {
+
+          L.marker(data[i].Coordinate).bindPopup("<h1>Address: " + data[i].Address + "</h1> <hr> <h3>Injured: " + data[i].Injured + "</h3>").addTo(map)
+      }
+      
+      
+});
+
+
+/** We can start by putting data on the map 
+* 
+*   Step 1: put the data on the map. 
+*        1.1 Since we are using geoJson data we need to use the L.geoJson function to plot the data on the map
+*        1.2 Resources -- https://leafletjs.com/reference-1.3.4.html#geojson
+* 
+* 
+*   Step 2: We can use the options in the GeoJson file to color our map 
+*        2.1: We need to color the map based on the Earthquake Manitude
+*/
+
+  // function plotMap(data){
+
+  //   for (var i = 0; i < data.length; i++) {
+    
+  //   //   var color = "";
+  //   //   if (earthquakedata[i].properties["mag"] <=1 ) {
+  //   //     color = "#F5F5DC";
+  //   //   }
+  //   //   else if (earthquakedata[i].properties["mag"] <=2) {
+  //   //     color = "#FFB6C1";
+  //   //   }
+  //   //   else if (earthquakedata[i].properties["mag"] <=3) {
+  //   //     color = "#E9967A";
+  //   //   }
+  //   //   else if (earthquakedata[i].properties["mag"] <=4) {
+  //   //     color = "#D2691E";
+  //   //   }
+  //   //   else if (earthquakedata[i].properties["mag"] <=5) {
+  //   //     color = "#B22222";
+  //   //   }
+  //   //   else {
+  //   //     color = "#800000";
+  //   //   }
+    
+      
+  //     L.circle(data[i].Coordinate, {
+  //       fillOpacity: 0.75,
+  //       color: "none",
+  //       fillColor: "yellow",
+  //       radius: 7
+  //     }.bindPopup("<h1>Address: " + data[i].Address + "</h1> <hr> <h3>Injured: " + data[i].Injured + "</h3>").addTo(map)
+  // ).addTo(map)
+    
+  //   }
+  // }
+
