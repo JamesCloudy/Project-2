@@ -10,3 +10,7 @@
 .green {
   stroke: green;
 }
+
+#map {
+  height: 300px;
+}
