@@ -15,3 +15,5 @@ engine = create_engine("sqlite:///Resources/StarsCrash.db", echo=False)
 # Use the Inspector to explore the database and print the table names
 inspector = inspect(engine)
 inspector.get_table_names()
+
+print(inspector.get_table_names())
