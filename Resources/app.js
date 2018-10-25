@@ -28,26 +28,7 @@
 // var chartGroup = svg.append("g")
 //   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// // // Step 3:
-// // // Import data from the donuts.csv file
-// // =================================
-// // d3.csv("stl_accident_data.csv").then(function(error, stl_accident_data) {
-// //   if (error) throw error;
 
-// //   // Step 4: Parse the data
-// //   // Format the data and convert to numerical and date values
-// //   // =================================
-// //   // Create a function to parse date and time
-// //   var parseTime = d3.timeParse("%d-%b");
-
-// //   // Format the data
-// //   stl_accident_data.forEach(function(data) {
-// //     data.Date = parseTime(data.Date);
-// //     // data.Injured = +data.Injured;
-// //     // data.Killed = +data.Killed;
-// //     console.log(data)
-// //   });
-// // })
 
 // d3.csv("STLCrashCSVwLatLong.csv", function(stl_accident_data) {
 
@@ -152,14 +133,7 @@
 //     .attr("fill", "orange")
 //     .text("Injured Data in St.Louis");
 
-// //   chartGroup.append("text")
-// //     .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
-// //     .attr("text-anchor", "middle")
-// //     .attr("font-size", "16px")
-// //     .attr("fill", "orange")
-// //     .text("Evening Donut Craving Level");
 
-// });
 
 var map = L.map("map", {
   center: [ 38.6270, -90.1994],
@@ -188,7 +162,7 @@ d3.csv("STLCrashCSVwLatLongCleared.csv",  function(data) {
         //console.log(data[i].Coordinate);
         var cor = L.latLng(data[i].Latitude, data[i].Longitude);
         //console.log(data[i].Latitude);
-          L.circle(cor).bindPopup("<h1>Address: " + data[i].Address + "</h1> <hr> <h3>Injured: " + data[i].Injured + "</h3>").addTo(map)
+          L.marker(cor).bindPopup("<h1>Address: " + data[i].Address + "</h1> <hr> <h3>Injured: " + data[i].Injured + "</h3>").addTo(map)
       }
       
       
