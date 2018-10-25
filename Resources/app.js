@@ -179,30 +179,6 @@ d3.csv("STLCrashCSVwLatLongCleared.csv",  function(data) {
 *   Step 2: We can use the options in the GeoJson file to color our map 
 *        2.1: We need to color the map based on the Earthquake Manitude
 */
-
-  // function plotMap(data){
-
-  //   for (var i = 0; i < data.length; i++) {
-    
-  //   //   var color = "";
-  //   //   if (earthquakedata[i].properties["mag"] <=1 ) {
-  //   //     color = "#F5F5DC";
-  //   //   }
-  //   //   else if (earthquakedata[i].properties["mag"] <=2) {
-  //   //     color = "#FFB6C1";
-  //   //   }
-  //   //   else if (earthquakedata[i].properties["mag"] <=3) {
-  //   //     color = "#E9967A";
-  //   //   }
-  //   //   else if (earthquakedata[i].properties["mag"] <=4) {
-  //   //     color = "#D2691E";
-  //   //   }
-  //   //   else if (earthquakedata[i].properties["mag"] <=5) {
-  //   //     color = "#B22222";
-  //   //   }
-  //   //   else {
-  //   //     color = "#800000";
-  //   //   }
     
       
   //     L.circle(data[i].Coordinate, {
