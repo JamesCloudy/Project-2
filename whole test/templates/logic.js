@@ -1,3 +1,6 @@
+
+
+
 // Creating our initial map object
 // We set the longitude, latitude, and the starting zoom level
 // This gets inserted into the div with an id of 'map'
@@ -20,78 +23,100 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 // var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
 
 
-d3.json(queryUrl, function(data) {
-  console.log(data.features);
-  createFeatures(data.features);
-}); 
+d3.json("/data").then(function(data) {
+  // console.log(data);
+  // });
+  // console.log("est",crashdata);
 
-function createFeatures(earthquakedata){
+  // d3.csv("STLCrashCSVwLatLongCleared.csv",  function(data) {
 
-for (var i = 0; i < earthquakedata.length; i++) {
+          //console.log(data);
+          // plotMap(data);
+          //data.Injured = +data.Injured;
+        //data.Coordinate = +data.Coordinate;
+    
+    
+          for (var i = 0; i < data.length; i++) {
+            //console.log(data[i].Coordinate);
+            var cor = L.latLng(data[i].Latitude, data[i].Longitude);
+            //console.log(data[i].Latitude);
+              L.marker(cor).bindPopup("<h1>Address: " + data[i].Address + "</h1> <hr> <h3>Injured: " + data[i].Injured + "</h3>").addTo(map)
+          }
+          
+          
+    });
+// d3.json(queryUrl, function(data) {
+//   console.log(data.features);
+//   createFeatures(data.features);
+// }); 
 
-  var color = "";
-  if (earthquakedata[i].properties["mag"] <=1 ) {
-    color = "#C2E9A0";
-  }
-  else if (earthquakedata[i].properties["mag"] <=2) {
-    color = "#97D85E";
-  }
-  else if (earthquakedata[i].properties["mag"] <=3) {
-    color = "yellow";
-  }
-  else if (earthquakedata[i].properties["mag"] <=4) {
-    color = "orange";
-  }
-  else if (earthquakedata[i].properties["mag"] <=5) {
-    color = "darkorange";
-  }
-  else {
-    color = "red";
-  }
+// function createFeatures(earthquakedata){
 
-  // Add circles to map
-  L.circle([earthquakedata[i].geometry.coordinates[1],earthquakedata[i].geometry.coordinates[0]], {
-    fillOpacity: 0.75,
-    color: "none",
-    fillColor: color,
-    // Adjust radius
-    radius: earthquakedata[i].properties["mag"] * 15000
-  }).bindPopup("<h1>Title: " + earthquakedata[i].properties["title"] + "</h1> <hr> <h3>Magnitude: " + earthquakedata[i].properties["mag"] + "</h3>").addTo(myMap);
-};
+// for (var i = 0; i < earthquakedata.length; i++) {
 
+//   var color = "";
+//   if (earthquakedata[i].properties["mag"] <=1 ) {
+//     color = "#C2E9A0";
+//   }
+//   else if (earthquakedata[i].properties["mag"] <=2) {
+//     color = "#97D85E";
+//   }
+//   else if (earthquakedata[i].properties["mag"] <=3) {
+//     color = "yellow";
+//   }
+//   else if (earthquakedata[i].properties["mag"] <=4) {
+//     color = "orange";
+//   }
+//   else if (earthquakedata[i].properties["mag"] <=5) {
+//     color = "darkorange";
+//   }
+//   else {
+//     color = "red";
+//   }
 
-// var overlayMaps = {
-//   Cities: cityLayer
+//   // Add circles to map
+//   L.circle([earthquakedata[i].geometry.coordinates[1],earthquakedata[i].geometry.coordinates[0]], {
+//     fillOpacity: 0.75,
+//     color: "none",
+//     fillColor: color,
+//     // Adjust radius
+//     radius: earthquakedata[i].properties["mag"] * 15000
+//   }).bindPopup("<h1>Title: " + earthquakedata[i].properties["title"] + "</h1> <hr> <h3>Magnitude: " + earthquakedata[i].properties["mag"] + "</h3>").addTo(myMap);
 // };
-// L.control.layers(overlayMaps).addTo(myMap);
-function getColor(d) {
-  return d <=1 ? '#C2E9A0' :
-         d <=2  ? '#97D85E' :
-         d <= 3 ? 'yellow' :
-         d <= 4 ? 'orange' :
-         d <= 5  ? 'darkorange' :
-                    '#darkorange';
-}
 
 
-var legend = L.control({position: 'bottomright'});
-legend.onAdd = function (myMap) {
-
-  var div = L.DomUtil.create('div', 'legend'),
-      grades = [0, 1, 2, 3, 4, 5],
-      labels = [];
-
-  // loop through our density intervals and generate a label with a colored square for each interval
-  for (var i = 0; i < grades.length; i++) {
-      div.innerHTML +=
-          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-  }
-
-  return div;
-};
-
-legend.addTo(myMap);
+// // var overlayMaps = {
+// //   Cities: cityLayer
+// // };
+// // L.control.layers(overlayMaps).addTo(myMap);
+// function getColor(d) {
+//   return d <=1 ? '#C2E9A0' :
+//          d <=2  ? '#97D85E' :
+//          d <= 3 ? 'yellow' :
+//          d <= 4 ? 'orange' :
+//          d <= 5  ? 'darkorange' :
+//                     '#darkorange';
+// }
 
 
-};
+// var legend = L.control({position: 'bottomright'});
+// legend.onAdd = function (myMap) {
+
+//   var div = L.DomUtil.create('div', 'legend'),
+//       grades = [0, 1, 2, 3, 4, 5],
+//       labels = [];
+
+//   // loop through our density intervals and generate a label with a colored square for each interval
+//   for (var i = 0; i < grades.length; i++) {
+//       div.innerHTML +=
+//           '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+//           grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+//   }
+
+//   return div;
+// };
+
+// legend.addTo(myMap);
+
+
+// };
