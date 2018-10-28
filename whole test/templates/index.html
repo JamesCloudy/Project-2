@@ -28,6 +28,7 @@
   <div id="map"></div>
 
   <div class="selections">
+  <form >
     <div class="select_row">
       Start Date:
       <input type="date" name="bday"min="2018-01-01" max="2018-10-10" id="start_date" value="2018-01-01">
@@ -35,7 +36,7 @@
 
       <div class="select_row">
         End Date:
-        <input type="date" name="bday"min="2018-01-01" max="2018-10-10" id="end_date"value="2018-10-20">
+        <input type="date" name="bday"min="2018-01-01" max="2018-10-10" id="end_date"value="2018-03-01">
         </div>
 
         <div class="select_row"> 
@@ -81,10 +82,10 @@
         <div class="select_row">
           Severity:
           <select class="select_bar" id="severity">
-            <option value="0">All Crashes</option>
-            <option value="1">Fatal</option>
-            <option value="2">Personal injury</option>
-            <option value="3">Property Damage</option>
+            <option >All Crashes</option>
+            <option >Fatal</option>
+            <option >Personal injury</option>
+            <option >Property Damage</option>
           </select>
         </div>
 
@@ -117,15 +118,15 @@
           </div>
 
           <div class="select_row">
-              Crash Type:
-              <select class="select_bar" id="crash_type">                
+              County:
+              <select class="select_bar" id="county">                
                 <option value="01">All</option>									
                 <option value="02">St.Louis</option>									
                 <option value="03">St.Louis County</option>									  
               </select>
             </div>
 
-            <div class="select_row">
+            <!-- <div class="select_row">
                 Crash Type:
                 <select class="select_bar" id="crash_type">
                     <option value="01">Animal</option>									
@@ -133,7 +134,7 @@
                     <option value="03">Fixed Object</option>									
                     <option value="04">Other Object</option>									
                 </select>
-              </div>
+              </div> -->
               <!-- <div class="select_row">
                   Crash Type:
                   <select class="select_bar" id="crash_type">
@@ -144,7 +145,10 @@
                   </select>
                 </div> -->
 
-<div class="select_bar"><input class="submitbtn" type="submit" value="Submit" onclick="submitfilter()">
+<div class="select_bar">
+    <!-- <button class="submitbtn" id="filterbtn" type="submit">Submit</button> -->
+  <input class="submitbtn" type="button" value="Submit" onclick="handleClick()">
+ </form>
 </div>
   </div>
   
