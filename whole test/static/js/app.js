@@ -45,7 +45,7 @@ function getData() {
 // This gets inserted into the div with an id of 'map'
 var myMap = L.map("map", {
   center: [38.6270, -90.1994],
-  zoom: 8
+  zoom: 13
 });
 
 // Adding a tile layer (the background map image) to our map
@@ -72,29 +72,41 @@ d3.json(queryUrl, function(data) {
 function makemap(dataset){
   var dataL=Object.keys(dataset).length
   console.log("here!",dataL);
+var color=""
 
-  try{
+  // try{
   for (var i=0;i<dataL;i++){
+    if (dataset[i].Severity =="Fatal" ) {
+      color = "red";
+    }
+    else if (dataset[i].Severity =="Personl Injury") {
+      color = "orange";
+    }
+    else if (dataset[i].Severity =="Property Damage") {
+      color = "green";
+    }
+
+
     L.circle([dataset[i].Lat,dataset[i].Long], {
       fillOpacity: 0.75,
       color: "none",
-      fillColor: "red",
+      fillColor: color,
       // Adjust radius
-      radius: 100
-    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr> <h3>Severity: " + dataset[i].Severity + "</h3>").addTo(myMap);
+      radius: 50
+    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(myMap);
   };
 
-}catch(error){
-  console.log(error)
-}
+// }catch(error){
+//   console.log(error)
+// }
   console.log("what");
   
+
+
+
+
+  
 }
-
-console.log("what end");
-
-
-
 // try {
 //   eval('alert("Hello world)');
 // }
