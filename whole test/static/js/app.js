@@ -1,6 +1,7 @@
 const API_KEY="pk.eyJ1IjoicGF0cmlja3l1NjEyMTAxIiwiYSI6ImNqbjB4czVrcDBwM20zcnBia2l1cDI2OHgifQ.Q-MP65O4i2w_HMphgGb_LA";
 var maptag = d3.select("#map");
 // var layergroup=L.layerGroup([markers]);
+var layergroup;
 var markers;
 // get data and print it 
 var crashdata=d3.json("/data").then((data)=> {
@@ -21,6 +22,8 @@ function mapping(){
     id: "mapbox.streets",
     accessToken: API_KEY
   }).addTo(myMap);  
+
+  layergroup = new L.LayerGroup().addTo(myMap);
 }
 mapping();
 
@@ -54,7 +57,7 @@ function makemap(dataset){
       fillColor: color,
       // Adjust radius
       radius: 500
-    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(myMap);
+    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(layergroup);
   };
 
 }catch(error){
@@ -70,7 +73,7 @@ function handleClick() {
   //   markers.clearLayers();  
   //   }catch(error){ console.log(error)}
   // maptag.html("");
-  markers.clearLayers();
+  layergroup.clearLayers();
   var crashdata=d3.json("/data").then((data)=> {
   // d3.event.preventDefault();
   var start_date = d3.select("#start_date").property("value");
@@ -92,7 +95,7 @@ console.log(cleaned);
 
 try{  
   var donedata = cleaned.filter(function(cleaned) {
-    return cleaned.Severity=="Fatal";
+    return cleaned.Severity==severityuser;
   });
   // donedata = cleaned.filter(function(cleaned) {
   //   return cleaned.Type==crash_type;
@@ -114,7 +117,7 @@ makemap2(donedata);
 function makemap2(dataset){
 ////////////////
 
-mapping();
+console.log("make2")
 // /////////////
 
 
@@ -141,7 +144,7 @@ var color=""
       fillColor: color,
       // Adjust radius
       radius: 500
-    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(myMap);
+    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(layergroup);
   };
 
 }catch(error){
