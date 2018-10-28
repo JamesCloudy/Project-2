@@ -57,7 +57,7 @@ function makemap(dataset){
       fillColor: color,
       // Adjust radius
       radius: 500
-    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(layergroup);
+    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2><hr><h2>County: " + dataset[i].County + "</h2>").addTo(layergroup);
   };
 
 }catch(error){
@@ -84,26 +84,45 @@ function handleClick() {
   var end_week = d3.select("#end_week").property("value");
   var severityuser = d3.select("#severity").property("value");
   var crash_type = d3.select("#crash_type").property("value");
+  var county = d3.select("#county").property("value");
+
   // var date = d3.select("#datetime").property("value");
-console.log(start_date,end_date,start_time,end_time,start_week,end_week,severityuser);
+console.log(start_date,end_date,start_time,end_time,start_week,end_week,crash_type,severityuser);
 
 
 // console.log(result);
 var cleaned=Object.values(data)
 console.log("just=data");
 console.log(cleaned);
+var donedata=cleaned;
+// try{
+  if(severityuser=="All Crashes"){
+  }else{
+  donedata = donedata.filter(function(donedata) {
+    // Severity
 
-try{  
-  var donedata = cleaned.filter(function(cleaned) {
-    return cleaned.Severity==severityuser;
+    return donedata.Severity==severityuser;
+  });}
+
+  if(crash_type=="All"){
+
+  }else{
+
+  donedata = donedata.filter(function(donedata) {
+    // type
+    return donedata.Type==crash_type;
+  });}
+
+
+  donedata = donedata.filter(function(donedata) {
+    // county
+    return donedata.County==county;
   });
-  // donedata = cleaned.filter(function(cleaned) {
-  //   return cleaned.Type==crash_type;
-  // });
 
-}catch(error){
-  console.log(error);
-};  
+
+// }catch(error){
+//   console.log(error);
+// };  
 console.log("cleaned");
 console.log(donedata);
 // console.log(done);
@@ -144,7 +163,7 @@ var color=""
       fillColor: color,
       // Adjust radius
       radius: 500
-    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2>").addTo(layergroup);
+    }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2><hr><h2>County: " + dataset[i].County + "</h2>").addTo(layergroup);
   };
 
 }catch(error){
