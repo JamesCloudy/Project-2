@@ -124,15 +124,15 @@ try{
     var endmin;
     start_time=JSON.stringify(start_time);
     starthour=start_time.split(":")[0];
-    starthour=start_time.substring(1,2);
+    starthour=start_time.substring(1,3);
     starthour=parseInt(starthour);
-    
+
     // starthour=parseInt(starthour);
     startmin=start_time.split(":")[1];
 
     end_time=JSON.stringify(end_time);
     endhour=end_time.split(":")[0];
-    endhour=endhour.substring(1,2);
+    endhour=endhour.substring(1,3);
     endhour=parseInt(endhour);
 
     endmin=end_time.split(":")[1];
@@ -152,7 +152,9 @@ try{
     var thismin;
     thistime=JSON.stringify(donedata.Time);
     thishour=thistime.split(":")[0];
+    thishour=thishour.substring(1,3);
     thishour=parseInt(thishour);
+
     thismin=thistime.split(":")[1];
     console.log("time hour");
     console.log(thishour);
