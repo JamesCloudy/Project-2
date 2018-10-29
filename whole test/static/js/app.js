@@ -56,7 +56,7 @@ function makemap(dataset){
       color: "none",
       fillColor: color,
       // Adjust radius
-      radius: 500
+      radius: 80
     }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2><hr><h2>County: " + dataset[i].County + "</h2>").addTo(layergroup);
   };
 
@@ -81,13 +81,13 @@ function handleClick() {
   var start_time = d3.select("#start_time").property("value");
   var end_time = d3.select("#end_time").property("value");
   var start_week = d3.select("#start_week").property("value");
-  var end_week = d3.select("#end_week").property("value");
+  // var end_week = d3.select("#end_week").property("value");
   var severityuser = d3.select("#severity").property("value");
   var crash_type = d3.select("#crash_type").property("value");
   var county = d3.select("#county").property("value");
 
   // var date = d3.select("#datetime").property("value");
-console.log(start_date,end_date,start_time,end_time,start_week,end_week,crash_type,severityuser);
+console.log(start_date,end_date,start_time,end_time,start_week,crash_type,severityuser);
 
 // console.log(result);
 var cleaned=Object.values(data)
@@ -104,6 +104,13 @@ var donedata=cleaned;
     // Severity
 
     return donedata.Severity==severityuser;
+  });}
+  if(start_week=="All"){
+  }else{
+  donedata = donedata.filter(function(donedata) {
+    // Severity
+
+    return donedata.Weekday==start_week;
   });}
 
   if(crash_type=="All"){
@@ -124,26 +131,32 @@ try{
     var endmin;
     start_time=JSON.stringify(start_time);
     starthour=start_time.split(":")[0];
-    starthour=start_time.substring(1,3);
+    starthour=starthour.substring(1,3);
     starthour=parseInt(starthour);
+    startmin=start_time.split(":")[1];
+    startmin=startmin.substring(0,2);
+    startmin=parseInt(startmin);
+
 
     // starthour=parseInt(starthour);
-    startmin=start_time.split(":")[1];
 
     end_time=JSON.stringify(end_time);
     endhour=end_time.split(":")[0];
     endhour=endhour.substring(1,3);
     endhour=parseInt(endhour);
-
     endmin=end_time.split(":")[1];
+    endmin=endmin.substring(0,2);
+    endmin=parseInt(endmin);
+
     console.log("start hour");
-
     console.log(starthour);
-
+    console.log("start min");
+    console.log(startmin);
 
     console.log("end hour");
-
     console.log(endhour);
+    console.log("end min");
+    console.log(endmin);
 
   donedata = donedata.filter(function(donedata) {
     // type
@@ -154,15 +167,20 @@ try{
     thishour=thistime.split(":")[0];
     thishour=thishour.substring(1,3);
     thishour=parseInt(thishour);
-
     thismin=thistime.split(":")[1];
+    thismin=thismin.substring(0,2);
+    thismin=parseInt(thismin);
+
     console.log("time hour");
     console.log(thishour);
+    
+    console.log("time min");
+    console.log(thismin);
 
-    if((thishour>starthour)&&(thishour<endhour)){
-
-        return donedata.Time==donedata.Time;
-
+    if((thishour>=starthour)&&(thishour<=endhour)){
+      if(((thishour=starthour)||(thishour=endhour))&&((thismin<startmin)||(thismin>endmin))){
+        return false;
+    }return donedata.Time==donedata.Time;
     }else{
     return false;
    } });}
@@ -217,7 +235,7 @@ var color=""
       color: "none",
       fillColor: color,
       // Adjust radius
-      radius: 500
+      radius: 80
     }).bindPopup("<h1>Date: " + dataset[i].Date + "</h1> <hr><h1>Weekday: " + dataset[i].Weekday + "</h1> <hr> <h1>Time: " + dataset[i].Time + "</h1><hr><h1>Type: " + dataset[i].Type + "</h1> <hr><h2>Severity: " + dataset[i].Severity + "</h2><hr><h2>County: " + dataset[i].County + "</h2>").addTo(layergroup);
   };
 
