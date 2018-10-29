@@ -45,7 +45,7 @@ for c in columns:
 
 print(listcolumns)  
 
-results = engine.execute('SELECT * FROM traffic LIMIT 100').fetchall()
+results = engine.execute('SELECT * FROM traffic LIMIT 500').fetchall()
 
 df = pd.DataFrame(results, columns=listcolumns)
 # print(df)

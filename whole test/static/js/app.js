@@ -89,12 +89,14 @@ function handleClick() {
   // var date = d3.select("#datetime").property("value");
 console.log(start_date,end_date,start_time,end_time,start_week,end_week,crash_type,severityuser);
 
-
 // console.log(result);
 var cleaned=Object.values(data)
 console.log("just=data");
 console.log(cleaned);
 var donedata=cleaned;
+// console.log("time")
+// console.log(JSON.stringify(donedata[0].Time).split(":"));
+
 // try{
   if(severityuser=="All Crashes"){
   }else{
@@ -113,11 +115,62 @@ var donedata=cleaned;
     return donedata.Type==crash_type;
   });}
 
+try{
+  if(start_time==end_time){
+  }else{
+    var starthour;
+    var startmin;
+    var endhour;
+    var endmin;
+    start_time=JSON.stringify(start_time);
+    starthour=start_time.split(":")[0];
+    starthour=start_time.substring(1,2);
+    starthour=parseInt(starthour);
+    
+    // starthour=parseInt(starthour);
+    startmin=start_time.split(":")[1];
+
+    end_time=JSON.stringify(end_time);
+    endhour=end_time.split(":")[0];
+    endhour=endhour.substring(1,2);
+    endhour=parseInt(endhour);
+
+    endmin=end_time.split(":")[1];
+    console.log("start hour");
+
+    console.log(starthour);
+
+
+    console.log("end hour");
+
+    console.log(endhour);
 
   donedata = donedata.filter(function(donedata) {
-    // county
-    return donedata.County==county;
-  });
+    // type
+    var thistime;
+    var thishour;
+    var thismin;
+    thistime=JSON.stringify(donedata.Time);
+    thishour=thistime.split(":")[0];
+    thishour=parseInt(thishour);
+    thismin=thistime.split(":")[1];
+    console.log("time hour");
+    console.log(thishour);
+
+    if((thishour>starthour)&&(thishour<endhour)){
+
+        return donedata.Time==donedata.Time;
+
+    }else{
+    return false;
+   } });}
+}catch(error){console.log(error)}
+
+
+  // donedata = donedata.filter(function(donedata) {
+  //   // county
+  //   return donedata.County==county;
+  // });
 
 
 // }catch(error){
