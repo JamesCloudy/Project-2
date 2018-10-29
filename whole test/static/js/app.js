@@ -29,13 +29,6 @@ mapping();
 
 // make map
 function makemap(dataset){
-  // maptag.html("");
-//  try{
-//     markers.clearLayers();  
-//     }catch(error){ console.log(error)}
-//   maptag.html("");
-
-
   var dataL=Object.keys(dataset).length
 
   var color=""
@@ -68,11 +61,7 @@ function makemap(dataset){
 
 
 function handleClick() {
-// console.log(markers)
-  // try{
-  //   markers.clearLayers();  
-  //   }catch(error){ console.log(error)}
-  // maptag.html("");
+
   layergroup.clearLayers();
   var crashdata=d3.json("/data").then((data)=> {
   // d3.event.preventDefault();
@@ -93,6 +82,9 @@ console.log(start_date,end_date,start_time,end_time,start_week,crash_type,severi
 var cleaned=Object.values(data)
 console.log("just=data");
 console.log(cleaned);
+console.log("date");
+console.log(JSON.stringify(cleaned[0].Date));
+
 var donedata=cleaned;
 // console.log("time")
 // console.log(JSON.stringify(donedata[0].Time).split(":"));
@@ -122,7 +114,6 @@ var donedata=cleaned;
     return donedata.Type==crash_type;
   });}
 
-try{
   if(start_time==end_time){
   }else{
     var starthour;
@@ -136,10 +127,6 @@ try{
     startmin=start_time.split(":")[1];
     startmin=startmin.substring(0,2);
     startmin=parseInt(startmin);
-
-
-    // starthour=parseInt(starthour);
-
     end_time=JSON.stringify(end_time);
     endhour=end_time.split(":")[0];
     endhour=endhour.substring(1,3);
@@ -148,18 +135,8 @@ try{
     endmin=endmin.substring(0,2);
     endmin=parseInt(endmin);
 
-    console.log("start hour");
-    console.log(starthour);
-    console.log("start min");
-    console.log(startmin);
-
-    console.log("end hour");
-    console.log(endhour);
-    console.log("end min");
-    console.log(endmin);
 
   donedata = donedata.filter(function(donedata) {
-    // type
     var thistime;
     var thishour;
     var thismin;
@@ -170,13 +147,6 @@ try{
     thismin=thistime.split(":")[1];
     thismin=thismin.substring(0,2);
     thismin=parseInt(thismin);
-
-    console.log("time hour");
-    console.log(thishour);
-    
-    console.log("time min");
-    console.log(thismin);
-
     if((thishour>=starthour)&&(thishour<=endhour)){
       if(((thishour=starthour)||(thishour=endhour))&&((thismin<startmin)||(thismin>endmin))){
         return false;
@@ -184,22 +154,64 @@ try{
     }else{
     return false;
    } });}
-}catch(error){console.log(error)}
 
+// date
+// try{
+//    if((start_date=="2018-01-01")&&(end_date=="2018-10-10")){
+//     console.log("just keep the data date the same ");
 
-  // donedata = donedata.filter(function(donedata) {
-  //   // county
-  //   return donedata.County==county;
-  // });
+// }else{
+//   start_date=JSON.stringify(start_date);
+//   startmonth=start_date.split("-")[1];
+//   startmonth=startmonth.substring(0,2)
+//   startmonth=parseInt(startmonth);
 
+//   startday=start_date.split("-")[2];
+//   startday=parseInt(startday);
 
-// }catch(error){
-//   console.log(error);
-// };  
+//   endmonth=end_date.split("-")[1];
+//   endmonth=endmonth.substring(0,2)
+//   endmonth=parseInt(endmonth);
+
+//   endday=end_date.split("-")[2];
+//   endday=parseInt(endday);
+
+//   console.log(startmonth);
+//   console.log(startday);
+//   console.log(endmonth);
+//   console.log(endday);
+
+//   donedata = donedata.filter(function(donedata) {
+//     var thisdate=donedata.Date;
+//     // console.log("TIME");
+//     // console.log(thisdate);
+//     var thismonth=thisdate.split("/")[0];
+//     thismonth=thismonth.substring(0,2);
+//     thismonth=parseInt(thismonth);
+//     console.log("thismonth");
+//     console.log(thismonth);
+
+//     var thisday=thisdate.split("/")[1];
+//     thisday=thisday.substring(0,2);
+//     thisday=parseInt(thisday);
+//     console.log("thisday");
+//     console.log(thisday);
+//     if((thismonth>=startmonth)&&(thisday<=endmonth)){
+//       if(((thismonth==startmonth)||(thismonth==endmonth))&&(thisday<startday)||(thisday>endday)){
+//       return false;
+//     }
+//       return donedata.Date==donedata.Date;
+//     }else{
+//       return false;
+//     }
+
+//   });
+//   JSON.stringify(cleaned[0].Date)
+// }
+// }catch(error){console.log(error)}
+
 console.log("cleaned");
 console.log(donedata);
-// console.log(done);
-
 makemap2(donedata);
 
 });
